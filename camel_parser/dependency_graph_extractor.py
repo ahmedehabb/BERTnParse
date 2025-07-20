@@ -13,6 +13,16 @@ from utils import get_upos, extract_features_from_parse, extract_pos_tags_from_b
 from clean_sentence_utils import clean_broken_arabic_words, clean_sentence, clean_example
 
 
+# Take split as input argument
+import sys
+if len(sys.argv) != 2:
+    print("Usage: python dependency_graph_extractor.py <Split>")
+    sys.exit(1)
+Split = sys.argv[1].lower()
+if Split not in ["train", "test", "validation"]:
+    print("Invalid split. Choose from 'train', 'test', or 'validation'.")
+    sys.exit(1)
+
 # Load sentence-level data from the "Dev" split
 train_dataset = load_dataset("CAMeL-Lab/BAREC-Shared-Task-2025-sent", split="train")
 eval_dataset = load_dataset("CAMeL-Lab/BAREC-Shared-Task-2025-sent", split="validation")
