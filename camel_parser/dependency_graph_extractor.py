@@ -23,30 +23,17 @@ if Split not in ["train", "test", "validation"]:
     print("Invalid split. Choose from 'train', 'test', or 'validation'.")
     sys.exit(1)
 
-# Load sentence-level data from the "Dev" split
-train_dataset = load_dataset("CAMeL-Lab/BAREC-Shared-Task-2025-sent", split="train")
-eval_dataset = load_dataset("CAMeL-Lab/BAREC-Shared-Task-2025-sent", split="validation")
-test_dataset = load_dataset("CAMeL-Lab/BAREC-Shared-Task-2025-sent", split="test")
+# Load sentence-level data from the split
+dataset = load_dataset("CAMeL-Lab/BAREC-Shared-Task-2025-sent", split=Split)
 
 # Fix labels to be 0-indexed
-train_dataset = train_dataset.map(lambda x: {"labels": x["Readability_Level_19"] - 1, "Sentence": araby.strip_diacritics(x["Sentence"])})
-eval_dataset = eval_dataset.map(lambda x: {"labels": x["Readability_Level_19"] - 1, "Sentence": araby.strip_diacritics(x["Sentence"])})
-test_dataset = test_dataset.map(lambda x: {"labels": x["Readability_Level_19"] - 1, "Sentence": araby.strip_diacritics(x["Sentence"])})
+dataset = dataset.map(lambda x: {"labels": x["Readability_Level_19"] - 1, "Sentence": araby.strip_diacritics(x["Sentence"])})
 
 # we should always clean each sentence in the dataset to be able to join with features
-train_dataset = train_dataset.map(clean_example)
-eval_dataset = eval_dataset.map(clean_example)
-test_dataset = test_dataset.map(clean_example)
+dataset = dataset.map(clean_example)
 
-df = pd.DataFrame(train_dataset)
-
-if Split == "test":
-    dataset = test_dataset
-elif Split == "validation":
-    dataset = eval_dataset
-else:
-    dataset = train_dataset
-
+# Convert to pandas DataFrame for easier manipulation 
+df = pd.DataFrame(dataset)
 
 # Convert to pandas first
 df = dataset.to_pandas()
