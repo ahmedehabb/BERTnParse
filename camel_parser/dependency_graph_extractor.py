@@ -76,7 +76,6 @@ for i, cleaned_subset in enumerate(subsets):
         output_path = os.path.join(OUTPUT_DIR, f"output_{i}_{j+1}.txt")
         os.system(f"python text_to_conll_cli.py -f text -i {input_path} > {output_path}")
 
-
 # get all files that start with "output_" and end with ".txt"
 all_parsed_blocks = []
 output_files = [f for f in os.listdir(OUTPUT_DIR) if f.startswith("output_") and f.endswith(".txt")]
