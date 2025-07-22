@@ -1,56 +1,70 @@
 # Bert-n-Parse
 
-## Dependency Graph Extractor
-This script preprocesses Arabic sentences from the CAMeL-Lab/BAREC-Shared-Task-2025-sent dataset and extracts linguistic features, including:
-- Morphological features
-- POS tags
-- Universal Dependencies (UD)
-- Dependency graphs
+## 🧠 Dependency Graph Extractor
 
-It also uses an external tool CamelParser2.0 to parse each sentence into CoNLL format and saves outputs in structured JSON files for downstream usage (e.g., modeling, analysis, or graph-based processing).
+This script preprocesses Arabic sentences from the [CAMeL-Lab/BAREC-Shared-Task-2025-sent](https://huggingface.co/datasets/CAMeL-Lab/BAREC-Shared-Task-2025-sent) dataset and extracts rich linguistic features for graph-based modeling. It leverages the [CamelParser v2.0](https://github.com/CAMeL-Lab/camel_parser) for syntactic analysis and outputs structured data for downstream machine learning or analysis tasks.
 
+### 🔍 Extracted Features
+- **Morphological features**
+- **Part-of-speech (POS) tags**
+- **Universal Dependencies (UD)**
+- **Dependency graph structure (head/deprel info)**
 
-### How to Run
-Inside the camel_parser directory: 
+---
 
-```
+### 🚀 How to Run
+
+Inside the `camel_parser/` directory:
+
+```bash
 python dependency_graph_extractor.py <Split>
 ```
-Where <Split> must be one of: train - validation - test
 
-```
+Replace `<Split>` with one of:
+
+- `train`
+- `validation`
+- `test`
+
+Example:
+
+```bash
 python dependency_graph_extractor.py train
 ```
 
 This will:
-- Load the train split of the dataset.
-- Normalize and clean each sentence.
-- Split the data into chunks.
-- Call text_to_conll_cli.py on each chunk to generate syntactic parses.
-- Extract:
+1. Load the dataset split (e.g., `train`).
+2. Normalize and clean the Arabic sentences.
+3. Split the data into manageable chunks.
+4. Use `text_to_conll_cli.py` to parse each chunk using CamelParser.
+5. Extract and save:
+   - Morphological and syntactic features
+   - Dependency relations
+   - Sentence-level statistics
 
-    - Morphological features
-    - POS tags
-    - UD features
-    - Dependency graphs
+---
 
-Save all processed outputs under a folder named splits_<Split>
+### 📦 Output Files (Saved in `./splits_<Split>/`)
 
-### Output Files (saved in ./splits_<Split>)
-- File Name	Description
-- sentences_i_j.txt	Raw cleaned sentence chunks passed to the parsing tool.
-- output_i_j.txt	Parsed output of each sentence chunk (in CoNLL format).
-- all_parsed_blocks_<Split>.txt	All CoNLL-formatted blocks merged into one file.
-- features_list_<Split>.json	Extracted features (e.g., sentence length, UD statistics) per sentence.
-- pos_tags_dict_<Split>.json	Mapping of sentence → list of POS tags.
-- morph_features_dict_<Split>.json	Mapping of sentence → morphological features (e.g., aspect, gender, number).
-- dep_graph_<Split>.json	Dependency graphs for each sentence, in a JSON-serializable structure.
+| File Name                       | Description                                                  |
+|--------------------------------|--------------------------------------------------------------|
+| `sentences_i_j.txt`            | Cleaned input sentences for parser chunk `i_j`               |
+| `output_i_j.txt`               | Parser output (CoNLL format) for chunk `i_j`                 |
+| `all_parsed_blocks_<Split>.txt`| All CoNLL-formatted parses merged into one file             |
+| `features_list_<Split>.json`   | Extracted statistics and metadata per sentence               |
+| `pos_tags_dict_<Split>.json`   | Mapping from sentence → list of POS tags                     |
+| `morph_features_dict_<Split>.json` | Mapping from sentence → morphological features           |
+| `dep_graph_<Split>.json`       | Dependency graphs as JSON-serializable structures            |
 
-### Notes
-Sentences are de-diacritized using pyarabic.araby.strip_diacritics.
-Duplicate sentences are dropped before processing.
-Each sentence is parsed using the CLI tool before feature extraction.
-Feature dictionaries use the cleaned sentence as the key for merging.
+---
+
+### 📝 Notes
+
+- All sentences are **de-diacritized** using `pyarabic.araby.strip_diacritics`.
+- Duplicate sentences are **removed before processing**.
+- Parsing is done via **CamelParser2.0** using its CLI interface.
+- Each output file is keyed by the **cleaned sentence string** to ensure consistent merging.
+
 
 ## Model Training: BERT + Graph Neural Networks
 
@@ -166,3 +180,27 @@ pip install -U datasets huggingface_hub
 - This setup is optimized for experimentation and reuse.
 - You can skip morph features if you prefer a cleaner dependency-based model.
 - The GNN expects properly padded graphs — this is handled automatically via `pad_pos_tags`.
+
+---
+### 📚 Citation
+
+This project uses **CamelParser v2.0**, developed by the CAMeL Lab. If you use this parser in your research or project, please cite the following paper:
+
+> **Ahmed Elshabrawy, Muhammed AbuOdeh, Go Inoue, and Nizar Habash**  
+> *CamelParser2.0: A State-of-the-Art Dependency Parser for Arabic*  
+> Proceedings of The First Arabic Natural Language Processing Conference (ArabicNLP 2023)
+
+BibTeX:
+```bibtex
+@inproceedings{Elshabrawy:2023:camelparser,
+    title     = "{CamelParser2.0: A State-of-the-Art Dependency Parser for Arabic}",
+    author    = {Ahmed Elshabrawy and
+                 Muhammed AbuOdeh and
+                 Go Inoue and
+                 Nizar Habash},
+    booktitle = {Proceedings of The First Arabic Natural Language Processing Conference (ArabicNLP 2023)},
+    year      = {2023}
+}
+```
+
+More info: [https://github.com/CAMeL-Lab/camel_parser](https://github.com/CAMeL-Lab/camel_parser)
