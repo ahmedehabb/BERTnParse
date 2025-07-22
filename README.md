@@ -184,23 +184,9 @@ pip install -U datasets huggingface_hub
 ---
 ### 📚 Citation
 
-This project uses **CamelParser v2.0**, developed by the CAMeL Lab. If you use this parser in your research or project, please cite the following paper:
-
+This project uses **CamelParser v2.0** by the CAMeL Lab for Arabic dependency parsing. Please see the official repository for details: https://github.com/CAMeL-Lab/camel_parser
 > **Ahmed Elshabrawy, Muhammed AbuOdeh, Go Inoue, and Nizar Habash**  
 > *CamelParser2.0: A State-of-the-Art Dependency Parser for Arabic*  
 > Proceedings of The First Arabic Natural Language Processing Conference (ArabicNLP 2023)
 
-BibTeX:
-```bibtex
-@inproceedings{Elshabrawy:2023:camelparser,
-    title     = "{CamelParser2.0: A State-of-the-Art Dependency Parser for Arabic}",
-    author    = {Ahmed Elshabrawy and
-                 Muhammed AbuOdeh and
-                 Go Inoue and
-                 Nizar Habash},
-    booktitle = {Proceedings of The First Arabic Natural Language Processing Conference (ArabicNLP 2023)},
-    year      = {2023}
-}
-```
-
-More info: [https://github.com/CAMeL-Lab/camel_parser](https://github.com/CAMeL-Lab/camel_parser)
+If you find the Bert-n-Parse useful in your research, please cite: 
