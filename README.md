@@ -65,6 +65,8 @@ This will:
 - Parsing is done via **CamelParser2.0** using its CLI interface.
 - Each output file is keyed by the **cleaned sentence string** to ensure consistent merging.
 
+### 🔗 Dependency Parsing Tool
+Dependency parsing in this project was performed using **CamelParser2.0: A State-of-the-Art Dependency Parser for Arabic** (Elshabrawy et al., 2023).
 
 ## Model Training: BERT + Graph Neural Networks
 
@@ -184,9 +186,9 @@ pip install -U datasets huggingface_hub
 ---
 ### 📚 Citation
 
-This project uses **CamelParser v2.0** by the CAMeL Lab for Arabic dependency parsing. Please see the official repository for details: https://github.com/CAMeL-Lab/camel_parser
-> **Ahmed Elshabrawy, Muhammed AbuOdeh, Go Inoue, and Nizar Habash**  
-> *CamelParser2.0: A State-of-the-Art Dependency Parser for Arabic*  
-> Proceedings of The First Arabic Natural Language Processing Conference (ArabicNLP 2023)
-
 If you find the Bert-n-Parse useful in your research, please cite: 
+
+> Your Name  
+> *Title of Your Work*  
+> Conference/Journal, Year  
+> DOI or URL (if available)
