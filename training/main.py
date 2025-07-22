@@ -1,7 +1,3 @@
-
-# !pip install transformers pyarabic regex coral-pytorch camel-tools torch_geometric
-# !pip install -U datasets huggingface_hub
-
 import os
 import pandas as pd
 import torch
