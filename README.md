@@ -56,7 +56,7 @@ Feature dictionaries use the cleaned sentence as the key for merging.
 
 Once the linguistic features and dependency graphs have been extracted and saved (see [Dependency Graph Extractor](#dependency-graph-extractor)), the next stage involves training a **graph-based readability classifier** on top of BERT embeddings using PyTorch Geometric.
 
-All training logic is implemented in [`training/main.py`](./training/main.py).
+All training logic is implemented in [`training/train.py`](./training/train.py).
 
 ---
 
@@ -75,7 +75,7 @@ You can choose between two GNN architectures:
 
 ### 🔄 End-to-End Pipeline
 
-The `main.py` script performs the following steps:
+The `train.py` script performs the following steps:
 
 #### 1. **Load & Preprocess the Dataset**
 - Loads all splits from the [CAMeL-Lab/BAREC-Shared-Task-2025-sent](https://huggingface.co/datasets/CAMeL-Lab/BAREC-Shared-Task-2025-sent) dataset using Hugging Face Datasets.
@@ -118,7 +118,7 @@ The `main.py` script performs the following steps:
 From the root of the project:
 
 ```bash
-python training/main.py
+python training/train.py
 ```
 
 Make sure you've already:
@@ -147,7 +147,7 @@ pip install -U datasets huggingface_hub
 │   └── dependency_graph_extractor.py
 │
 ├── training/
-│   ├── main.py  ← Full model training pipeline
+│   ├── train.py  ← Full model training pipeline
 │   ├── models.py
 │   ├── utils.py
 │   ├── graph_utils.py
