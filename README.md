@@ -42,6 +42,9 @@ This will:
    - Dependency relations
    - Sentence-level statistics
 
+💡 Alternatively, you can run the full pipeline using the provided notebook:  
+📓 **`Camel_parser.ipynb`** – includes all steps from preprocessing to dependency graph extraction in one place.
+
 ---
 
 ### 📦 Output Files (Saved in `./splits_<Split>/`)
@@ -140,6 +143,9 @@ python training/train.py
 Make sure you've already:
 - Installed required dependencies (see below).
 - Parsed all splits using the [`camel_parser`](./camel_parser) pipeline.
+
+💡 Alternatively, you can run the full end-to-end pipeline (from data loading to final evaluation) using the provided notebook:  
+📓 **`barec-model.ipynb`** – mirrors all steps in `train.py` in one place for easy experimentation and interactive debugging.
 
 ---
 
