@@ -1,5 +1,18 @@
 # Bert-n-Parse
 
+**Bert-n-Parse** is a system for sentence-level **Arabic readability assessment**, developed as part of our submission to **Task 1 of the BAREC Shared Task 2025**. The system integrates **contextual** and **syntactic** information by combining:
+
+- Pretrained BERT embeddings (`aubmindlab/bert-base-arabertv02`)
+- Graph Neural Networks (GNNs) operating over **dependency parse trees**
+
+Our key hypothesis is that readability depends not just on **lexical choice**, but also on **syntactic complexity**—particularly in morphologically rich languages like Arabic. To capture this, each sentence is represented as a **dependency graph** where:
+
+- **Nodes** carry BERT-based contextual embeddings, POS tags embeddings, .. (morphological features)
+- **Edges** reflect grammatical dependencies
+
+The GNN models the structure of these graphs, enabling the system to learn both **deep linguistic features** and **contextual patterns**. Empirically, our syntax-aware model improves over a strong BERT-only baseline, demonstrating the importance of structural information in fine-grained readability prediction.
+
+
 ## 🧠 Dependency Graph Extractor
 
 This script preprocesses Arabic sentences from the [CAMeL-Lab/BAREC-Shared-Task-2025-sent](https://huggingface.co/datasets/CAMeL-Lab/BAREC-Shared-Task-2025-sent) dataset and extracts rich linguistic features for graph-based modeling. It leverages the [CamelParser v2.0](https://github.com/CAMeL-Lab/camel_parser) for syntactic analysis and outputs structured data for downstream machine learning or analysis tasks.
