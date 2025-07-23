@@ -225,6 +225,14 @@ pip install -U datasets huggingface_hub
 - The GNN expects properly padded graphs — this is handled automatically via `pad_pos_tags`.
 
 ---
+
+## 📊 Results
+
+We evaluate our model using **Quadratic Weighted Kappa (QWK)**, the primary metric for ordinal classification. Our syntax-aware approach achieves higher QWK scores on both internal and official test sets compared to a strong AraBERTv2 baseline, demonstrating the effectiveness of integrating syntactic structure.
+
+![Results Comparison](figures/results.png)
+
+---
 ### 📚 Citation
 
 If you find the Bert-n-Parse useful in your research, please cite: 
