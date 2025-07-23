@@ -113,7 +113,7 @@ class ImprovedSimpleEdgeGNN(nn.Module):
             nn.Linear(hidden_dim, hidden_dim)
         )
 
-        self.edge_fuse_proj = nn.Linear(edge_embedding_size, hidden_dim)
+        self.edge_fuse_proj = nn.Linear(2 * edge_embedding_size, hidden_dim)
 
         self.convs = nn.ModuleList()
         self.norms = nn.ModuleList()
@@ -258,7 +258,7 @@ class StrongerEdgeGNN(nn.Module):
             nn.Sigmoid()
         )
 
-        self.edge_fuse_proj = nn.Linear(hidden_dim, hidden_dim)
+        self.edge_fuse_proj = nn.Linear(2 * hidden_dim, hidden_dim)
 
         self.convs = nn.ModuleList()
         self.norms = nn.ModuleList()
