@@ -1,5 +1,7 @@
 import torch
 from sklearn.metrics import accuracy_score, cohen_kappa_score
+import numpy as np
+from train import NUM_CLASSES
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -12,6 +14,26 @@ def coral_decode(logits):
     # For each sample, count how many thresholds are > 0.5
     preds = (probas > 0.5).sum(dim=1)
     return preds
+
+
+def regression_decode(logits, labels):
+    """ logits: [batch_size, num_classes-1] tensor
+    labels: [batch_size, num_classes-1] tensor
+    returns: numpy array of predicted class labels
+    """
+    # Ensure logits and labels are on CPU and numpy arrays
+    logits = logits.cpu().numpy()
+    labels = labels.cpu().numpy()
+    #  Flatten predictions and labels if needed
+    logits = logits.squeeze()
+    labels = labels.squeeze()
+
+    def round_and_clip(logits):
+        rounded = np.round(logits).astype(int)
+        return np.clip(rounded, 0, NUM_CLASSES - 1)
+
+    # Get rounded predictions for classification-based metrics
+    return round_and_clip(logits)
     
 def evaluate(model, loader):
     model.eval()

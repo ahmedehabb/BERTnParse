@@ -170,6 +170,7 @@ pip install -U datasets huggingface_hub
 │
 ├── training/
 │   ├── train.py  ← Full model training pipeline
+│   ├── another_models.py  : These are some other models based on bert only used for experiments.
 │   ├── models.py
 │   ├── utils.py
 │   ├── graph_utils.py
