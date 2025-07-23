@@ -12,6 +12,23 @@ This script preprocesses Arabic sentences from the [CAMeL-Lab/BAREC-Shared-Task-
 
 ---
 
+### 🧩 Token Alignment and Word-Level Graph Merging
+
+A crucial step in the preprocessing pipeline is harmonizing the granularity mismatch between AraBERTv2's **subword tokenization** and the **word-level outputs** from the CamelParser. Arabic words often contain rich morphology (e.g., clitics or affixes like `سأصيدهما` → `س+أصيد+هما`), and the dependency parser returns linguistically meaningful segments that do not align directly with BERT’s subword units.
+
+To ensure consistent node representations between the parser and BERT embeddings:
+- **Subword embeddings** from AraBERTv2 are **averaged** to produce a single vector per word.
+- On the graph side, **clitic and morpheme-level nodes** are **merged** into unified word-level nodes.
+- Edges between merged nodes are also consolidated to preserve syntactic structure.
+
+This alignment ensures a **1-to-1 mapping** between BERT vectors and graph nodes, enabling meaningful message passing in GNNs.
+
+📌 See **Figure 1** for an illustration of this merging process:
+
+![Merging Example](figures/merging.png)
+
+---
+
 ### 🚀 How to Run
 
 Inside the `camel_parser/` directory:
@@ -89,6 +106,10 @@ The model architecture consists of:
 You can choose between two GNN architectures:
 - `ImprovedSimpleEdgeGNN` – simple but effective edge-based model.
 - `StrongerEdgeGNN` – deeper and more expressive, with multi-head attention and dropout.
+
+📌 **Figure 2** below summarizes the full system architecture, from dependency parsing and token alignment to graph-based classification:
+
+![System Architecture](figures/system_arch.png)
 
 ---
 
